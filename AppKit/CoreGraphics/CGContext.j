@@ -456,6 +456,57 @@ CGContext.prototype.endText = function()
     CPLog.warn("CGContext.prototype.endText() unimplemented");
 }
 
+CGContext.prototype.getTextMatrix = function(/* CGContext */ aContext)
+{
+    return this._textMatrix;
+}
+
+CGContext.prototype.setTextMatrix = function(/* CGContext */ aContext, /* CGAffineTransform */ aTransform)
+{
+    this._textMatrix = aTransform;
+}
+
+CGContext.prototype.getTextPosition = function(/* CGContext */ aContext)
+{
+    return this._textPosition || _CGPointMakeZero();
+}
+
+CGContext.prototype.setTextPosition = function(/* CGContext */ aContext, /* float */ x, /* float */ y)
+{
+    this._textPosition = CGPointMake(x, y);
+}
+
+CGContext.prototype.getFont = function(/* CGContext */ aContext)
+{
+    return this._CPFont;
+}
+
+CGContext.prototype.selectFont = function(/* CGContext */ aContext, /* CPFont */ aFont)
+{
+    this.canvasAPI.font = [aFont cssString];
+    this._CPFont = aFont;
+}
+
+CGContext.prototype.setTextDrawingMode = function(/* CGContext */ aContext, /* CGTextDrawingMode */ aMode)
+{
+    this._textDrawingMode = aMode;
+}
+
+CGContext.prototype.showText = function(/* CGContext */ aContext, /* CPString */ aString)
+{
+    showTextAtPoint(aContext, aContext._textPosition.x, aContext._textPosition.y, aString);
+}
+
+CGContext.prototype.showTextAtPoint = function(/* CGContext */ aContext, /* float */ x, /* float */ y, /* CPString */ aString)
+{
+    CPLog.warn("CGContext.prototype.showTextAtPoint() unimplemented");
+}
+
+CGContext.prototype.measureText = function(/* CGContext */ aContext, /* CPString */ aString)
+{
+    CPLog.warn("CGContext.prototype.measureText() unimplemented");    
+}
+
 /*!
     This function is just here for source compatibility.
     It does nothing.
@@ -1184,9 +1235,30 @@ function CGContextSetFont(aContext, aFont)
     aContext.setFont(aFont);
 }
 
+/*!
+    Sets the current font
+    @param aContext the CGContext within which to set the font
+    @param aFont the font to set
+*/
+
+function CGContextSelectFont(aContext, aFont)
+{
+    aContext.selectFont(aFont);
+}
+
 function CGContextSetFontSize(aContext, aSize)
 {
     aContext.setFontSize(aSize);
+}
+
+function CGContextSetCharacterSpacing(aContext, spacing)
+{
+    aContext.setCharacterSpacing(spacing);
+}
+
+function CGContextSetTextDrawingMode(aContext, mode)
+{
+    aContext.setTextDrawingMode(mode);
 }
 
 function CGContextGetTextMatrix(aContext)
@@ -1220,7 +1292,7 @@ function CGContextBeginText(aContext)
 
 /*!
     Call at the end of a series of CGContextShowTextAtPositions() calls if you
-    started with CGContextBeginTextBeginText()
+    started with CGContextBeginText()
 */
 function CGContextEndText(aContext)
 {
@@ -1240,6 +1312,15 @@ function CGContextShowTextAtPositions(aContext, characters, positions, count)
     aContext.showTextAtPositions(characters, positions, count);
 }
 
+function CGContextShowText(aContext, aString)
+{
+    aContext.showText(aContext, aString)
+}
+
+function CGContextShowTextAtPoint(aContext, x, y, aString, aLength)
+{
+    aContext.showTextAtPoint(aContext, x, y, aString)
+}
 /*!
     @}
 */

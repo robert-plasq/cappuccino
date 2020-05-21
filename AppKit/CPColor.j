@@ -589,6 +589,11 @@ var cachedBlackColor,
     return self;
 }
 
+- (CGColor)CGColor
+{
+    return CGColorCreate(kCGColorSpaceGenericRGB, _components);
+}
+    
 /*!
     Returns the image being used as the pattern for the tile in this color.
 */

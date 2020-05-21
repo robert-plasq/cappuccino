@@ -24,7 +24,7 @@
 
 @import "CGContext.j"
 
-@typedef CTRun
+@typedef CTRunRef
 
 /*!
     @addtogroup coretext

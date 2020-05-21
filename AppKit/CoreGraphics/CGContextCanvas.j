@@ -619,6 +619,72 @@ CGCanvasGraphicsContext.prototype.drawRadialGradient = function(aGradient, aStar
     this.hasPath = NO;
 }
 
+CGCanvasGraphicsContext.prototype.getTextMatrix = function(/* CGContext */ aContext)
+{
+    return this._textMatrix;
+}
+
+CGCanvasGraphicsContext.prototype.setTextMatrix = function(/* CGContext */ aContext, /* CGAffineTransform */ aTransform)
+{
+    this._textMatrix = aTransform;
+}
+
+CGCanvasGraphicsContext.prototype.getTextPosition = function(/* CGContext */ aContext)
+{
+    return this._textPosition || _CGPointMakeZero();
+}
+
+CGCanvasGraphicsContext.prototype.setTextPosition = function(/* CGContext */ aContext, /* float */ x, /* float */ y)
+{
+    this._textPosition = CGPointMake(x, y);
+}
+
+CGCanvasGraphicsContext.prototype.getFont = function(/* CGContext */ aContext)
+{
+    return this._CPFont;
+}
+
+CGCanvasGraphicsContext.prototype.selectFont = function(/* CGContext */ aContext, /* CPFont */ aFont)
+{
+    this.canvasAPI.font = [aFont cssString];
+    this._CPFont = aFont;
+}
+
+CGCanvasGraphicsContext.prototype.setTextDrawingMode = function(/* CGContext */ aContext, /* CGTextDrawingMode */ aMode)
+{
+    this._textDrawingMode = aMode;
+}
+
+CGCanvasGraphicsContext.prototype.showText = function(/* CGContext */ aContext, /* CPString */ aString)
+{
+    showTextAtPoint(aContext, aContext._textPosition.x, aContext._textPosition.y, aString);
+}
+
+CGCanvasGraphicsContext.prototype.showTextAtPoint = function(/* CGContext */ aContext, /* float */ x, /* float */ y, /* CPString */ aString)
+{
+    this.canvasAPI.textBaseline = @"middle";
+    this.canvasAPI.textAlign = @"left";
+    
+    var mode = aContext._textDrawingMode;
+    if (!mode && mode !== 0)
+        mode = kCGTextFill;
+    
+    var width = this.canvasAPI.measureText(aString).width;
+    
+    if (mode === kCGTextFill || mode === kCGTextFillStroke)
+        this.canvasAPI.fillText(aString, x, y);
+    if (mode === kCGTextStroke || mode === kCGTextFillStroke)
+        this.canvasAPI.strokeText(aString, x, y);
+    
+    this._textPosition = CGPointMake(x + width, y);
+}
+
+CGCanvasGraphicsContext.prototype.measureText = function(/* CGContext */ aContext, /* CPString */ aString)
+{
+    var size = this.canvasAPI.measureText(aString);
+    return size;
+}
+
 /*
  * If the canvas is available it becomes the default implementation
  * for CGBitmapGraphicsContextCreate()

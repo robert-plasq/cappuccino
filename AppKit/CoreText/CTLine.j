@@ -26,7 +26,9 @@
 
 @import "CTRun.j"
 
-@implementation CPLine : CPObject
+@typedef CTLineRef
+
+@implementation CTLine : CPObject
 {
     CPAttributedString _string;
     CPArray _runs;
@@ -136,7 +138,7 @@
 
 function CTLineCreateWithAttributedString(anAttributedString)
 {
-    return [[CPLine alloc] initWithAttributedString: anAttributedString];
+    return [[CTLine alloc] initWithAttributedString: anAttributedString];
 }
 
 function CTLineGetCharCount(aLine)

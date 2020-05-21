@@ -104,7 +104,7 @@ CPStringSizeCachingEnabled = YES;
         if (fontHeight === undefined)
             fontHeight = CPStringSizeWithFontHeightCache[cssString] = [aFont defaultLineHeightForFont];
 
-        size = CGSizeMake(CPStringSizeMeasuringContext.measureText(self).width, fontHeight);
+        size = CGSizeMake(CPStringSizeMeasuringContext.canvasAPI.measureText(self).width, fontHeight);
     }
 
     sizeCacheForFont[cacheKey] = size;

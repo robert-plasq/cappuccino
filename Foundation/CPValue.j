@@ -23,6 +23,8 @@
 @import "CPCoder.j"
 @import "CPObject.j"
 
+@import"CPGeometry.j"
+
 /*!
     @class CPValue
     @ingroup foundation
@@ -43,6 +45,11 @@
 + (id)valueWithJSObject:(JSObject)aJSObject
 {
     return [[self alloc] initWithJSObject:aJSObject];
+}
+
++ (id)valueWithCGPoint:(CGPoint)aPoint
+{
+    return [self valueWithJSObject: {type: "cgpoint", x:aPoint.x, y:aPoint.y}];
 }
 
 /*!
@@ -66,6 +73,14 @@
 - (JSObject)JSObject
 {
     return _JSObject;
+}
+
+- (CGPoint)CGPointValue
+{
+    if (_JSObject.type === "cgpoint") {
+        return CGPointMake(_JSObject.x, _JSObject.y);
+    }
+    return nil;
 }
 
 @end

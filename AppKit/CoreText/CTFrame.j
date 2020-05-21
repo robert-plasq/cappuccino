@@ -28,7 +28,7 @@
 
 @import "CTLine.j"
 
-@implementation CPFrame : CPObject
+@implementation CTFrame : CPObject
 {
     CPRange _range;
     CPArray _lines;
@@ -111,7 +111,7 @@
     return _lines;
 }
 
-- (void)addLine:(CPLine)line
+- (void)addLine:(CTLine)line
 {
     [_lines addObject: line];
 }

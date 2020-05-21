@@ -140,6 +140,14 @@ var CPStringUIDs = new CFMutableDictionary(),
 }
 
 /*!
+    For Foundation compatibility - Javascript strings are all UTF-16
+*/
++ (id)stringWithUTF8String:(CPString)aString
+{
+    return [self stringWithString: aString];
+}
+
+/*!
     Initializes the string with data from the specified string.
     @param aString the string to copy data from
     @return the initialized CPString

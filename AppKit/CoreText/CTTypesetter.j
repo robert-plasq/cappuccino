@@ -34,7 +34,9 @@ kCTTypesetterOptionForcedEmbeddingLevel = "CTTypesetterOptionForcedEmbeddingLeve
 
 var CPTypesetterSVGTextElement = nil;
 
-@implementation CPTypesetter : CPObject
+@typedef CTTypesetterRef
+
+@implementation CTTypesetter : CPObject
 {
     CPAttributedString _string;
     int _lineBreakMode;
@@ -74,7 +76,7 @@ var CPTypesetterSVGTextElement = nil;
     return self;
 }
 
-- (CPLine)createLineWithRange:(CPRange)range offset:(CGFloat)offset
+- (CTLineRef)createLineWithRange:(CPRange)range offset:(CGFloat)offset
 {
     var string = [_string attributedSubstringFromRange: range];
     
@@ -204,7 +206,7 @@ function CTTypesetterCreateWithAttributedString(anAttributedString)
 
 function CTTypesetterCreateWithAttributedStringAndOptions(anAttributedString, options)
 {
-    return [[CPTypesetter alloc] initWithAttributedString: anAttributedString options: options];
+    return [[CTTypesetter alloc] initWithAttributedString: anAttributedString options: options];
 }
 
 function CTTypesetterCreateLine(aTypesetter, aRange)

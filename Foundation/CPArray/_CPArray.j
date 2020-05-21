@@ -84,6 +84,15 @@ var concat = Array.prototype.concat,
 }
 
 /*!
+    Returns a new initialized CPArray.
+    capacity is ignored.
+*/
++ (id)arrayWithCapacity:(CPUInteger)capacity
+{
+    return [[self alloc] init];
+}
+
+/*!
     Creates a new array containing the objects in \c anArray.
     @param anArray Objects in this array will be added to the new array
     @return a new CPArray of the provided objects

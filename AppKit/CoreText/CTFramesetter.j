@@ -33,10 +33,11 @@ kCTFramesetterVerticalBottomAlignment    = 2;
 
 kCTFramesetterVerticalAlignment              = "CTFramesetterVerticalAlignment";
 
+@typedef CTFramesetterRef
 
-@implementation CPFramesetter : CPObject
+@implementation CTFramesetter : CPObject
 {
-    CPTypesetter       _typesetter;
+    CTTypesetter       _typesetter;
 }
 
 - (id)initWithAttributedString:(CPAttributedString)string
@@ -44,12 +45,12 @@ kCTFramesetterVerticalAlignment              = "CTFramesetterVerticalAlignment";
     self = [super init];
     if (self)
     {
-        _typesetter = [[CPTypesetter alloc] initWithAttributedString: string options: nil];
+        _typesetter = [[CTTypesetter alloc] initWithAttributedString: string options: nil];
     }
     return self;
 }
 
-- (CPTypesetter)typesetter
+- (CTTypesetter)typesetter
 {
     return _typesetter;
 }
@@ -77,10 +78,10 @@ kCTFramesetterVerticalAlignment              = "CTFramesetterVerticalAlignment";
     return width;    
 }
 
-- (CPFrame)_doCreateFrameWithRange: (CPRange)range path: (CGPath)path frameAttributes: (CPDictionary)frameAttributes yOffset:(double)yOffset
+- (CTFrame)_doCreateFrameWithRange: (CPRange)range path: (CGPath)path frameAttributes: (CPDictionary)frameAttributes yOffset:(double)yOffset
 {
 //    CPLog.trace("- [CTFramesetter _doCreateFrameWithRange: string: %@", _typesetter._string)
-    var frame = [[CPFrame alloc] initWithRange: range path: path attributes: frameAttributes];
+    var frame = [[CTFrame alloc] initWithRange: range path: path attributes: frameAttributes];
 
     var startIndex = range.location;
 
@@ -143,7 +144,7 @@ kCTFramesetterVerticalAlignment              = "CTFramesetterVerticalAlignment";
     return frame;
 }
 
-- (CPFrame)createFrameWithRange: (CPRange)range path: (CGPath)path frameAttributes: (CPDictionary)frameAttributes
+- (CTFrame)createFrameWithRange: (CPRange)range path: (CGPath)path frameAttributes: (CPDictionary)frameAttributes
 {
     var verticalAlignment = kCTFramesetterVerticalTopAlignment;
     if ([frameAttributes objectForKey: kCTFramesetterVerticalAlignment] != nil)
@@ -197,7 +198,7 @@ kCTFramesetterVerticalAlignment              = "CTFramesetterVerticalAlignment";
 
 function CTFramesetterCreateWithAttributedString(anAttributedString)
 {
-    return [[CPFramesetter alloc] initWithAttributedString: anAttributedString];
+    return [[CTFramesetter alloc] initWithAttributedString: anAttributedString];
 }
 
 function CTFramesetterCreateFrame(aFramesetter, aRange, aPath, frameAttributes)
