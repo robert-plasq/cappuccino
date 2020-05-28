@@ -401,7 +401,7 @@ CGSVGGraphicsContext.prototype.drawLinearGradient = function(aGradient, aStartPo
 
 CGSVGGraphicsContext.prototype.drawRadialGradient = function(aGradient, aStartCenter, aStartRadius, anEndCenter, anEndRadius, options)
 {
-    CPLog.warn("CGSVGGraphicsContext.prototype.drawRadialGradient() unimplemented");
+//     CPLog.warn("CGSVGGraphicsContext.prototype.drawRadialGradient() unimplemented");
 }
 
 CGSVGGraphicsContext.prototype.beginTransparencyLayerWithRect = function(aRect, auxiliaryInfo)

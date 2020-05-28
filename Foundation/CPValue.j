@@ -75,6 +75,23 @@
     return _JSObject;
 }
 
+- (CPString)objCType
+{
+    if (_JSObject.type) {
+        return _JSObject.type;
+    }
+    
+   // We're pretty restricted by the simple number types of Javascript
+    if (typeof _JSObject == "boolean") {
+        return @"c";
+    } else if (Number.isInteger(_JSObject)) {
+        return "l";
+    } else {
+        return "d";
+    }
+
+}
+
 - (CGPoint)CGPointValue
 {
     if (_JSObject.type === "cgpoint") {

@@ -320,6 +320,18 @@ FIXME: Do we need this?
     return CAST_TO_INT(self);
 }
 
+- (CPString)objCType
+{
+    // We're pretty restricted by the simple number types of Javascript
+    if (typeof self == "boolean") {
+        return @"c";
+    } else if (Number.isInteger(self)) {
+        return "l";
+    } else {
+        return "d";
+    }
+}
+
 - (CPComparisonResult)compare:(CPNumber)aNumber
 {
     if (aNumber == nil || aNumber['isa'] === CPNull)

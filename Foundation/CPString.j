@@ -490,6 +490,14 @@ var CPStringUIDs = new CFMutableDictionary(),
     return self.replace(CPStringRegexTrimWhitespace, "");
 }
 
+/*!
+    Adds percent escapes 
+*/
+- (CPString)stringByAddingPercentEscapes
+{
+    return encodeURIComponent(self);
+}
+
 // Identifying and comparing strings
 
 /*!

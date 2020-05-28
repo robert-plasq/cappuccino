@@ -38,6 +38,14 @@
 }
 
 /*!
+    Returns the system encoding version
+*/
+- (CPInteger)systemVersion
+{
+    return 100;
+}
+
+/*!
     Returns a flag indicating whether the receiver supports keyed coding. The default implementation returns
     \c NO. Subclasses supporting keyed coding must override this to return \c YES.
 */

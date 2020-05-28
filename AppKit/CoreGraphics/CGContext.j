@@ -362,12 +362,12 @@ CGContext.prototype.clip = function()
 
 CGContext.prototype.clipToRect = function(aRect)
 {
-    CPLog.warn("CGContext.prototype.clipToRect() unimplemented");
+//     CPLog.warn("CGContext.prototype.clipToRect() unimplemented");
 }
 
 CGContext.prototype.clipToRects = function(aRect)
 {
-    CPLog.warn("CGContext.prototype.clipToRect() unimplemented");
+//     CPLog.warn("CGContext.prototype.clipToRects() unimplemented");
 }
 
 CGContext.prototype.createPatternContext = function(aSize)
