@@ -118,57 +118,6 @@ CGCanvasGraphicsContext.prototype.setBlendMode = function(aBlendMode)
     this.canvasAPI.globalCompositeOperation = CANVAS_COMPOSITE_TABLE[aBlendMode];
 }
 
-CGCanvasGraphicsContext.prototype.addArc = function(x, y, radius, startAngle, endAngle, clockwise)
-{
-    // Despite the documentation saying otherwise, the last parameter is anti-clockwise not clockwise.
-    // http://developer.mozilla.org/en/docs/Canvas_tutorial:Drawing_shapes#Arcs
-    this.canvasAPI.arc(x, y, radius, startAngle, endAngle, !clockwise);
-
-    // AddArc implicitly starts a path
-    this.hasPath = YES;
-}
-
-CGCanvasGraphicsContext.prototype.addArcToPoint = function(x1, y1, x2, y2, radius)
-{
-    if (!hasPath(this, "CGCanvasGraphicsContext.prototype.addArcToPoint()"))
-        return;
-
-    this.canvasAPI.arcTo(x1, y1, x2, y2, radius);
-}
-
-CGCanvasGraphicsContext.prototype.addCurveToPoint = function(aContext, cp1x, cp1y, cp2x, cp2y, x, y)
-{
-    if (!hasPath(this, "CGCanvasGraphicsContext.prototype.addCurveToPoint()"))
-        return;
-
-    this.canvasAPI.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-}
-
-CGCanvasGraphicsContext.prototype.addLines = function(points, count)
-{
-    // implementation mirrors that of CGPathAddLines()
-    if (count == null)
-        count = points.length;
-
-    if (count < 1)
-        return;
-
-    this.canvasAPI.moveTo(points[0].x, points[0].y);
-
-    for (var i = 1; i < count; ++i)
-        this.canvasAPI.lineTo(points[i].x, points[i].y);
-
-    this.hasPath = YES;
-}
-
-CGCanvasGraphicsContext.prototype.addLineToPoint = function(x, y)
-{
-    if (!hasPath(this, "CGCanvasGraphicsContext.prototype.addLineToPoint()"))
-        return;
-
-    this.canvasAPI.lineTo(x, y);
-}
-
 CGCanvasGraphicsContext.prototype.addPath = function(aPath)
 {
     if (CGPathIsEmpty(aPath))
@@ -222,58 +171,6 @@ CGCanvasGraphicsContext.prototype.addPath = function(aPath)
         }
     }
 
-    this.hasPath = YES;
-}
-
-CGCanvasGraphicsContext.prototype.addRect = function(aRect)
-{
-    this.canvasAPI.rect(CGRectGetMinX(aRect), CGRectGetMinY(aRect), CGRectGetWidth(aRect), CGRectGetHeight(aRect));
-    this.hasPath = YES;
-}
-
-CGCanvasGraphicsContext.prototype.addQuadCurveToPoint = function(cpx, cpy, x, y)
-{
-    if (!hasPath(this, "CGCanvasGraphicsContext.prototype.addQuadCurveToPoint()"))
-        return;
-
-    this.canvasAPI.quadraticCurveTo(cpx, cpy, x, y);
-}
-
-CGCanvasGraphicsContext.prototype.addRects = function(rects, count)
-{
-    if (count == null)
-        count = rects.length;
-
-    for (var i = 0; i < count; ++i)
-    {
-        var aRect = rects[i];
-        this.canvasAPI.rect(CGRectGetMinX(aRect), CGRectGetMinY(aRect), CGRectGetWidth(aRect), CGRectGetHeight(aRect));
-    }
-
-    this.hasPath = YES;
-}
-
-CGCanvasGraphicsContext.prototype.beginPath = function()
-{
-//    CPLog.trace("CGCanvasGraphicsContext.prototype.beginPath()");
-    this.canvasAPI.beginPath();
-    this.hasPath = NO;
-}
-
-CGCanvasGraphicsContext.prototype.closeSubpath = function()
-{
-//    CPLog.trace("CGCanvasGraphicsContext.prototype.closeSubpath()");
-    this.canvasAPI.closePath();
-}
-
-CGCanvasGraphicsContext.prototype.isPathEmpty = function()
-{
-    return !this.hasPath;
-}
-
-CGCanvasGraphicsContext.prototype.moveToPoint = function(x, y)
-{
-    this.canvasAPI.moveTo(x, y);
     this.hasPath = YES;
 }
 
